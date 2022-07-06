@@ -1,0 +1,15 @@
+CHEATSHEET
+——————
+
+=> Hit Target/Test Hit:
+wget -O- 'http://<ip>:<port>/probe?module=http_2xx&target=<target>:<port>&debug=true'
+
+=> Curl ingress/host
+curl -H "Host:Namahost" http://ip:port/path 
+
+=> Delete pod stuck container creating
+Pod=$(kubectl get pods -A |grep ContainerCreating |awk '{print $2}')
+for pod in "${Pod[@]}"; do kubectl delete pods  $pod -n  change-data-capture; done
+
+=> Check MTU inside pod
+kubectl get pod -A --no-headers | grep -vi kube-system | xargs -l bash -c 'echo -n "$0/$1: " ;kubectl exec -n $0 $1 -- cat /sys/class/net/eth0/mtu'
