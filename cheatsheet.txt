@@ -13,3 +13,17 @@ for pod in "${Pod[@]}"; do kubectl delete pods  $pod -n  change-data-capture; do
 
 => Check MTU inside pod
 kubectl get pod -A --no-headers | grep -vi kube-system | xargs -l bash -c 'echo -n "$0/$1: " ;kubectl exec -n $0 $1 -- cat /sys/class/net/eth0/mtu'
+
+=> pvc with strage class
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foo-pv
+spec:
+  storageClassName: ""
+  claimRef:
+    name: foo-pvc
+    namespace: foo
+```
+
